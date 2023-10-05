@@ -33,7 +33,7 @@ const Routes = () => {
                         alignItems: 'center',
                     },
                     tabBarItemStyle: {
-                        marginTop: 10
+                        marginTop: 11
                     },
                     tabBarLabelStyle: {
 
