@@ -7,14 +7,21 @@ import Home from '../pages/Home'
 import CardSection from '../pages/CardSection'
 import cardImage from '../../assest/card.png'
 import homeImage from '../../assest/home.png'
+import CardDetails from '../pages/CardDetails';
 const Routes = () => {
     const Tab = createBottomTabNavigator();
-    const Stack = createNativeStackNavigator();
+    const HomeStack = createNativeStackNavigator();
 
-    <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Homes" component={Home} />
-        <Stack.Screen name="Cards" component={CardSection} />
-    </Stack.Navigator>
+
+    function HomeStackScreen() {
+        return (
+            <HomeStack.Navigator initialRouteName="Homes">
+                <HomeStack.Screen name="Homes" component={Home} />
+                <HomeStack.Screen name="Cards" component={CardSection} />
+                <HomeStack.Screen name="CardDetails" component={CardDetails} />
+            </HomeStack.Navigator>
+        );
+    }
     return (
         <NavigationContainer>
             <Tab.Navigator
@@ -44,9 +51,9 @@ const Routes = () => {
             >
                 <Tab.Screen
                     name="Home"
-                    component={Home}
+                    component={HomeStackScreen}
                     options={{
-                        headerShown: true,
+                        headerShown: false,
                         tabBarIcon: ({ focused }) => (
                             <Image
                                 source={focused ? homeImage : homeImage}
