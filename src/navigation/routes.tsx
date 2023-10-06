@@ -31,7 +31,6 @@ const Routes = () => {
                     tabBarShowLabel: true,
                     tabBarActiveTintColor: '#FF7C84',
                     tabBarInactiveTintColor: 'black',
-                    headerTitleAlign: 'center',
                     tabBarStyle: {
                         borderTopEndRadius: 15,
                         borderTopStartRadius: 15,

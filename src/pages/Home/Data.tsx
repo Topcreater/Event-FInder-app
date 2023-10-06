@@ -7,16 +7,17 @@ export const data = [
     {
         price: '36000',
         title: 'Iphone 11 pro',
-        img: image1
+        img: [image1, image2, image3, image1]
+
     },
     {
         price: '36000',
         title: 'Iphone 11 pro',
-        img: image2
+        img: [image1, image2, image3]
     },
     {
         price: '36000',
         title: 'Iphone 11 pro',
-        img: image3
+        img: [image1, image2, image3]
     },
 ]

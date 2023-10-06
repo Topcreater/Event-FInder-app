@@ -6,16 +6,19 @@ import { useNavigation } from '@react-navigation/native'
 import { data } from './Data'
 const Cards = ({ title }: any) => {
     const navigation = useNavigation<any>();
+    const handleCardClick = (item: any) => {
+        navigation.navigate('CardDetails', { cardData: item });
+    };
     return (
         <View>
             <Text style={styles.catogoryTitle}>{title}</Text>
             <ScrollView horizontal={true}>
                 {data.map((item, index) =>
-                    <TouchableWithoutFeedback onPress={() => navigation.navigate('CardDetails')}>
-                        <View key={index} style={styles.mainContanir}>
+                    <View key={index} style={styles.mainContanir}>
+                        <TouchableWithoutFeedback onPress={() => handleCardClick(item)}>
                             <View style={styles.contanir}>
                                 <View style={styles.imageCont}>
-                                    <Image source={item.img} style={styles.youTubeIcon} />
+                                    <Image source={item.img[0]} style={styles.youTubeIcon} />
                                 </View>
                                 <View style={styles.priceCont}>
                                     <Text style={styles.titles}>Rs {item.price}</Text>
@@ -23,8 +26,8 @@ const Cards = ({ title }: any) => {
                                 </View>
                                 <Text style={styles.subTitle}>{item.title}</Text>
                             </View>
-                        </View>
-                    </TouchableWithoutFeedback>
+                        </TouchableWithoutFeedback>
+                    </View>
                 )}
             </ScrollView>
         </View>
