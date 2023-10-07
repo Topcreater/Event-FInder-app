@@ -38,6 +38,7 @@ export const styles = StyleSheet.create({
     contanir: {
         backgroundColor: '#EDFCFE',
         borderRadius: 10,
+        paddingBottom: 5
 
     },
     titles: {
@@ -69,7 +70,16 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontFamily: 'Raleway',
         color: 'black',
-        padding: 15,
+        paddingTop: 10,
+        paddingLeft: 15,
+    },
+    Location: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        fontFamily: 'Raleway',
+        color: 'black',
+        paddingTop: 10,
+        paddingLeft: 15,
     },
     catogoryTitle: {
         fontSize: 18,

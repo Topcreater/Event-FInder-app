@@ -18,25 +18,33 @@ const CardDetails = () => {
     };
 
     return (
-        <View style={{ backgroundColor: 'black' }}>
-            <Text style={styles.pageText}>{currentIndex + 1} / {images.length}</Text>
-            <ScrollView
-                horizontal
-                pagingEnabled
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.imageContainer}
-                onMomentumScrollEnd={(event) => {
-                    const page = Math.round(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width);
-                    setCurrentIndex(page);
-                }}>
-                {images.map((image: any, index: any) => (
-                    <TouchableOpacity key={index} onPress={() => openFullscreen(index)}>
-                        <Image source={image} style={styles.image} />
-                    </TouchableOpacity>
-                ))}
-            </ScrollView>
-            <Text>{cardDatas.title}</Text>
+        <View style={{ backgroundColor: 'black', flex: 1 }}>
+            <View>
+                <Text style={styles.pageText}>{currentIndex + 1} / {images.length}</Text>
+                <ScrollView
+                    horizontal
+                    pagingEnabled
+                    showsHorizontalScrollIndicator={false}
+                    contentContainerStyle={styles.imageContainer}
+                    onMomentumScrollEnd={(event) => {
+                        const page = Math.round(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width);
+                        setCurrentIndex(page);
+                    }}>
+                    {images.map((image: any, index: any) => (
+                        <TouchableOpacity key={index} onPress={() => openFullscreen(index)}>
+                            <Image source={image} style={styles.image} />
+                        </TouchableOpacity>
+                    ))}
+                </ScrollView>
+            </View>
+            <View style={{ backgroundColor: '#EDFCFE', }}>
+                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.title}</Text>
+                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.price}</Text>
+                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.location}</Text>
+                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.description}</Text>
 
+
+            </View>
             {/* Fullscreen Modal */}
             <Modal
                 animationType="slide"
