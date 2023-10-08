@@ -4,7 +4,7 @@ export const styles = StyleSheet.create({
 
     imageContainer: {
         flexDirection: 'row',
-        backgroundColor: 'grey',
+        backgroundColor: '#EEEEEE',
         height: 200,
 
     },
@@ -16,10 +16,10 @@ export const styles = StyleSheet.create({
 
     },
     pageText: {
-        color: 'white',
+        color: '#232D3F',
         fontSize: 18,
         textAlign: "center",
-        backgroundColor: 'grey',
+        backgroundColor: '#EEEEEE',
     },
     fullscreenImage: {
         height: 600,

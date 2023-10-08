@@ -4,13 +4,15 @@ export const styles = StyleSheet.create({
 
     searchContanir: {
         marginTop: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#EEEEEE',
         width: windwoWidth * 0.950,
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center',
         borderRadius: 10,
-        paddingLeft: 10
+        paddingLeft: 10,
+        shadowColor: 'grey',
+
     },
     searchIcon: {
         width: 25,
@@ -25,7 +27,7 @@ export const styles = StyleSheet.create({
     title: {
         marginTop: 20,
         textAlign: 'center',
-        color: 'white',
+        color: '#232D3F',
         fontSize: 20,
 
     },
@@ -46,10 +48,12 @@ export const styles = StyleSheet.create({
         fontWeight: '600',
         fontFamily: 'Raleway',
 
-        color: 'black'
+        color: '#232D3F'
     },
     imageCont: {
-        backgroundColor: 'grey',
+        backgroundColor: '#EEEEEE',
+        borderTopEndRadius: 10,
+        borderTopStartRadius: 10
 
     },
     youTubeIcon: {
@@ -69,7 +73,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         fontFamily: 'Raleway',
-        color: 'black',
+        color: '#232D3F',
         paddingTop: 10,
         paddingLeft: 15,
     },
@@ -77,7 +81,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         fontFamily: 'Raleway',
-        color: 'black',
+        color: '#232D3F',
         paddingTop: 10,
         paddingLeft: 15,
     },
@@ -87,6 +91,6 @@ export const styles = StyleSheet.create({
         fontFamily: 'Raleway',
         marginTop: 20,
         marginLeft: 20,
-        color: 'white'
+        color: '#232D3F'
     }
 })

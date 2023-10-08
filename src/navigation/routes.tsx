@@ -15,10 +15,14 @@ const Routes = () => {
 
     function HomeStackScreen() {
         return (
-            <HomeStack.Navigator initialRouteName="Homes">
-                <HomeStack.Screen name="Homes" component={Home} />
+            <HomeStack.Navigator initialRouteName="Homes" >
+                <HomeStack.Screen name="Homes" component={Home} options={{
+                    headerShown: false
+                }} />
                 <HomeStack.Screen name="Cards" component={CardSection} />
-                <HomeStack.Screen name="CardDetails" component={CardDetails} />
+                <HomeStack.Screen name="CardDetails" component={CardDetails} options={{
+                    headerShown: false
+                }} />
             </HomeStack.Navigator>
         );
     }
@@ -35,7 +39,7 @@ const Routes = () => {
                         borderTopEndRadius: 15,
                         borderTopStartRadius: 15,
                         height: 73,
-                        backgroundColor: 'white',
+                        backgroundColor: '#EEEEEE',
                         alignItems: 'center',
                     },
                     tabBarItemStyle: {

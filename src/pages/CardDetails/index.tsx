@@ -12,13 +12,18 @@ const CardDetails = () => {
     const cardDatas = route.params?.cardData;
     const images = cardDatas?.img;
 
-    const openFullscreen = (index) => {
+    const openFullscreen = (index: any) => {
         setCurrentIndex(index);
         setFullscreenModalVisible(true);
     };
 
     return (
-        <View style={{ backgroundColor: 'black', flex: 1 }}>
+        <View style={{ backgroundColor: '#EEEEEE', flex: 1 }}>
+            <View>
+                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                    <Text>back</Text>
+                </TouchableOpacity>
+            </View>
             <View>
                 <Text style={styles.pageText}>{currentIndex + 1} / {images.length}</Text>
                 <ScrollView
@@ -53,10 +58,10 @@ const CardDetails = () => {
                 onRequestClose={() => {
                     setFullscreenModalVisible(false);
                 }}>
-                <View style={{ flex: 1, backgroundColor: 'black' }}>
-                    <Text style={{ fontSize: 16, textAlign: 'center' }}>{currentIndex + 1} / {images.length}</Text>
+                <View style={{ flex: 1, backgroundColor: '#EEEEEE' }}>
+                    <Text style={{ fontSize: 16, textAlign: 'center', color: '#232D3F' }}>{currentIndex + 1} / {images.length}</Text>
                     <TouchableOpacity onPress={() => setFullscreenModalVisible(false)}>
-                        <Text style={{ color: 'white', paddingLeft: 20 }}>Close</Text>
+                        <Text style={{ color: '#232D3F', paddingLeft: 20 }}>Close</Text>
                     </TouchableOpacity>
                     <ScrollView
                         horizontal

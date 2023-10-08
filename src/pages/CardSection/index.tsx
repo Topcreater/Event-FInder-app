@@ -8,14 +8,13 @@ const CardSection = () => {
     const data = useStore((state: any) => state.data);
     const removeData = useStore((state: any) => state.removeData);
     console.log(data)
-
-
     const handleRemoveData = (item: any) => {
-        removeData();
+        removeData(item);
+
     };
     return (
         <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
-            <TouchableOpacity onPress={() => handleRemoveData}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <View>
                     <Text style={styles.textColor}>Card</Text>
                 </View>

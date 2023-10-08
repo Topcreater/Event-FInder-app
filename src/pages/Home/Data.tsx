@@ -5,7 +5,7 @@ import image3 from '../../../assest/icon.png'
 
 export const data = [
     {
-        price: '36000',
+        price: '36500',
         title: 'Iphone 11 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3, image1],
@@ -14,7 +14,7 @@ export const data = [
 
     },
     {
-        price: '36000',
+        price: '36050',
         title: 'Iphone 12 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3],
@@ -22,7 +22,7 @@ export const data = [
         category: 'Laptop'
     },
     {
-        price: '36000',
+        price: '37000',
         title: 'Iphone 13 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3],
@@ -30,7 +30,7 @@ export const data = [
         category: 'Phone'
     },
     {
-        price: '36000',
+        price: '38000',
         title: 'Iphone 11 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3, image1],
@@ -39,7 +39,7 @@ export const data = [
 
     },
     {
-        price: '36000',
+        price: '39000',
         title: 'Iphone 12 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3],
@@ -47,7 +47,7 @@ export const data = [
         category: 'Laptop'
     },
     {
-        price: '36000',
+        price: '40000',
         title: 'Iphone 13 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3],
@@ -55,7 +55,7 @@ export const data = [
         category: 'Phone'
     },
     {
-        price: '36000',
+        price: '41000',
         title: 'Iphone 11 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3, image1],
@@ -64,7 +64,7 @@ export const data = [
 
     },
     {
-        price: '36000',
+        price: '45000',
         title: 'Iphone 12 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3],
@@ -72,7 +72,7 @@ export const data = [
         category: 'Laptop'
     },
     {
-        price: '36000',
+        price: '46000',
         title: 'Iphone 13 pro',
         description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error suscipit neque distinctio nesciunt tempora explicabo quibusdam veniam quasi, quos impedit dolores ullam non placeat itaque a, voluptatibus veritatis! Minus, libero!',
         img: [image1, image2, image3],

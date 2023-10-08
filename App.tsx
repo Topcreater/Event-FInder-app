@@ -15,8 +15,7 @@ import Routes from './src/navigation/routes';
 function App(): JSX.Element {
 
   return (
-    <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
-      {/* <Home /> */}
+    <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
       <Routes />
     </SafeAreaView>
   );

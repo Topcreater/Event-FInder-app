@@ -11,7 +11,7 @@ const Home = () => {
     const laptopData = data.filter(item => item.category === 'Laptop');
     const phoneData = data.filter(item => item.category === 'Phone');
     return (
-        <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
+        <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
             <View style={styles.searchContanir}>
                 <Image source={searchIcon} style={styles.searchIcon} />
                 <TextInput
