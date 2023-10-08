@@ -24,15 +24,9 @@ const Cards = ({ title, data }: any) => {
                                     <Image source={item.img[0]} style={styles.youTubeIcon} />
                                 </View>
                             </TouchableWithoutFeedback>
-                            <View style={styles.priceCont}>
-                                <Text style={styles.titles}>Rs {item.price}</Text>
-                                <TouchableOpacity>
-                                    <Image source={favrot} style={styles.searchIcon} />
-                                </TouchableOpacity>
-                            </View>
+                            <Text style={styles.subTitle}>Rs {item.price}</Text>
                             <Text style={styles.subTitle}>{item.title}</Text>
-                            <Text style={styles.Location}>{item.location}</Text>
-
+                            <Text style={styles.subTitle}>{item.location}</Text>
                         </View>
                     </View>
                 )}

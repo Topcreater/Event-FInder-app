@@ -32,8 +32,8 @@ export const styles = StyleSheet.create({
 
     },
     mainContanir: {
-        marginTop: 10,
-        marginHorizontal: 15,
+        marginVertical: 15,
+        marginHorizontal: 5,
         flexDirection: "row",
 
     },
@@ -43,50 +43,30 @@ export const styles = StyleSheet.create({
         paddingBottom: 5
 
     },
-    titles: {
-        fontSize: 16,
-        fontWeight: '600',
-        fontFamily: 'Raleway',
-
-        color: '#232D3F'
-    },
     imageCont: {
         backgroundColor: '#EEEEEE',
         borderTopEndRadius: 10,
-        borderTopStartRadius: 10
+        borderTopStartRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
 
     },
     youTubeIcon: {
-        width: 250,
+        width: windwoWidth / 2.1,
         height: 100,
         resizeMode: 'contain',
-        margin: 10
-    },
-    priceCont: {
-        flexDirection: 'row',
-        alignItems: "center",
-        justifyContent: 'space-between',
-        marginTop: 10,
-        paddingHorizontal: 15
+        alignItems: 'center'
     },
     subTitle: {
-        fontSize: 16,
+        fontSize: 12,
         fontWeight: 'bold',
         fontFamily: 'Raleway',
         color: '#232D3F',
         paddingTop: 10,
-        paddingLeft: 15,
-    },
-    Location: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        fontFamily: 'Raleway',
-        color: '#232D3F',
-        paddingTop: 10,
-        paddingLeft: 15,
+        paddingLeft: 10
     },
     catogoryTitle: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: '600',
         fontFamily: 'Raleway',
         marginTop: 20,

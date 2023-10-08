@@ -3,7 +3,7 @@ import { View, ScrollView, Image, TouchableOpacity, Text, Modal } from 'react-na
 import { styles } from './style';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
-
+import back from '../../../assest/back.png'
 const CardDetails = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [fullscreenModalVisible, setFullscreenModalVisible] = useState(false);
@@ -19,65 +19,84 @@ const CardDetails = () => {
 
     return (
         <View style={{ backgroundColor: '#EEEEEE', flex: 1 }}>
-            <View>
-                <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                    <Text>back</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Text style={styles.pageText}>{currentIndex + 1} / {images.length}</Text>
-                <ScrollView
-                    horizontal
-                    pagingEnabled
-                    showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={styles.imageContainer}
-                    onMomentumScrollEnd={(event) => {
-                        const page = Math.round(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width);
-                        setCurrentIndex(page);
-                    }}>
-                    {images.map((image: any, index: any) => (
-                        <TouchableOpacity key={index} onPress={() => openFullscreen(index)}>
-                            <Image source={image} style={styles.image} />
-                        </TouchableOpacity>
-                    ))}
-                </ScrollView>
-            </View>
-            <View style={{ backgroundColor: '#EDFCFE', }}>
-                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.title}</Text>
-                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.price}</Text>
-                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.location}</Text>
-                <Text style={{ color: 'black', padding: 5, }}>{cardDatas.description}</Text>
-
-
-            </View>
-            {/* Fullscreen Modal */}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={fullscreenModalVisible}
-                onRequestClose={() => {
-                    setFullscreenModalVisible(false);
-                }}>
-                <View style={{ flex: 1, backgroundColor: '#EEEEEE' }}>
-                    <Text style={{ fontSize: 16, textAlign: 'center', color: '#232D3F' }}>{currentIndex + 1} / {images.length}</Text>
-                    <TouchableOpacity onPress={() => setFullscreenModalVisible(false)}>
-                        <Text style={{ color: '#232D3F', paddingLeft: 20 }}>Close</Text>
+            <ScrollView>
+                <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between', marginHorizontal: 20, }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Image source={back} style={{ height: 25, width: 25, }} />
                     </TouchableOpacity>
+                    <Text style={styles.pageText}>{currentIndex + 1} / {images.length}</Text>
+                </View>
+                <View>
                     <ScrollView
                         horizontal
                         pagingEnabled
                         showsHorizontalScrollIndicator={false}
+                        contentContainerStyle={styles.imageContainer}
                         onMomentumScrollEnd={(event) => {
                             const page = Math.round(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width);
                             setCurrentIndex(page);
-                        }}
-                    >
+                        }}>
                         {images.map((image: any, index: any) => (
-                            <Image key={index} source={image} style={styles.fullscreenImage} />
+                            <TouchableOpacity key={index} onPress={() => openFullscreen(index)}>
+                                <Image source={image} style={styles.image} />
+                            </TouchableOpacity>
                         ))}
                     </ScrollView>
                 </View>
-            </Modal>
+                <View style={styles.detailCon}>
+                    <View style={styles.TitleCon}>
+                        <Text style={styles.title}>{cardDatas.title}</Text>
+                        <Text style={styles.title}>Price:{cardDatas.price}/PKR</Text>
+                    </View>
+                    <Text style={styles.title}>Location:</Text>
+                    <Text style={styles.subTitle}>{cardDatas.location}</Text>
+                    <Text style={styles.title}>Description:</Text>
+                    <Text style={styles.subTitle}>{cardDatas.description}</Text>
+                    <Text style={styles.title}>Delivery Time:</Text>
+                    <Text style={styles.subTitle}>Next 7 TO 10 working days</Text>
+                    <Text style={styles.title}>Services:</Text>
+                    <Text style={styles.subTitle}>*7 Day Returns *warenty are avalible</Text>
+
+                </View>
+                <View style={styles.ButtonContanior}>
+                    <TouchableOpacity style={styles.buyNowBut} >
+                        <Text style={styles.buttonText}>Buy Now</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.downloadingButton} >
+                        <Text style={styles.buttonText}> Add TO Cart</Text>
+                    </TouchableOpacity>
+                </View>
+                {/* Fullscreen Modal */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={fullscreenModalVisible}
+                    onRequestClose={() => {
+                        setFullscreenModalVisible(false);
+                    }}>
+                    <View style={{ flex: 1, backgroundColor: '#EEEEEE' }}>
+                        <View style={{ flexDirection: 'row', marginTop: 20, justifyContent: 'space-between', marginHorizontal: 20, }}>
+                            <TouchableOpacity onPress={() => setFullscreenModalVisible(false)}>
+                                <Image source={back} style={{ height: 25, width: 25, }} />
+                            </TouchableOpacity>
+                            <Text style={styles.pageText}>{currentIndex + 1} / {images.length}</Text>
+                        </View>
+                        <ScrollView
+                            horizontal
+                            pagingEnabled
+                            showsHorizontalScrollIndicator={false}
+                            onMomentumScrollEnd={(event) => {
+                                const page = Math.round(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width);
+                                setCurrentIndex(page);
+                            }}
+                        >
+                            {images.map((image: any, index: any) => (
+                                <Image key={index} source={image} style={styles.fullscreenImage} />
+                            ))}
+                        </ScrollView>
+                    </View>
+                </Modal>
+            </ScrollView>
         </View>
     );
 };
