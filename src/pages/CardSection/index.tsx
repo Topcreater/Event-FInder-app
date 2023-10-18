@@ -3,33 +3,41 @@ import React, { useState } from 'react'
 import { styles } from './style'
 import { useNavigation } from '@react-navigation/native'
 import useStore from '../../zustandStore/addfavorat'
-import CardDetails from '../CardDetails'
 const CardSection = () => {
     const navigation = useNavigation<any>()
     const data = useStore((state: any) => state.data);
     const removeData = useStore((state: any) => state.removeData);
-    const [clickedItemIndex, setClickedItemIndex] = useState(null);
-
-    const showDropDownMenu = (index: any) => {
-        setClickedItemIndex(index === clickedItemIndex ? null : index);
+    const handleRemoveData = (itemId: string) => {
+        removeData(itemId);
     };
+    console.log(data?.id);
+    const validData = data.filter(item => item && item.cardDatas);
 
-    console.log(data)
-    const handleRemoveData = (item: any) => {
-        removeData(item);
-    };
-    const renderItem = ({ item, index }: any) => (
-        <CardDetails item={item} index={index} showDropDownMenu={showDropDownMenu} clickedItemIndex={clickedItemIndex} data={data} setClickedItemIndex={setClickedItemIndex} handleRemoveData={handleRemoveData} />
-    );
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <FlatList
-                data={data} style={{ marginTop: 150 }}
-                ListEmptyComponent={
-                    <Text >Nothing is downloaded.....</Text>
-                }
-                renderItem={renderItem}
-            />
+            {validData.length > 0 ? (
+                validData?.map((item, index) => (
+                    <View key={index}>
+                        <View style={styles.contanir}>
+                            <View style={styles.imageCont}>
+                                <Image source={item.cardDatas.img[0]} style={styles.youTubeIcon} />
+                            </View>
+                            <View>
+                                <Text style={styles.subTitle}>{item.cardDatas.title}</Text>
+                                <Text style={styles.subTitle}>Rs {item.cardDatas.price}</Text>
+                                <Text style={styles.subTitle}>{item.cardDatas.location}</Text>
+                            </View>
+                            <View style={styles.removeData}>
+                                <TouchableOpacity onPress={() => handleRemoveData(item.id)}>
+                                    <Text style={styles.catogoryTitle}>Delete</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                ))
+            ) : (
+                <Text>Nothing is downloaded.....</Text>
+            )}
         </View>
     )
 }
