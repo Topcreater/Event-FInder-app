@@ -4,7 +4,7 @@ import { styles } from './style';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import useStore from '../../zustandStore/addfavorat';
-import back from '../../../assest/back.png'
+import back from '../../assest/back.png'
 import uuid from 'react-native-uuid'
 const CardDetails = () => {
     const [currentIndex, setCurrentIndex] = useState(0);

@@ -1,32 +1,77 @@
-import { Text, View, SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native'
-import React from 'react'
-import { styles } from './style'
-import { useNavigation } from '@react-navigation/native'
-import searchIcon from '../../../assest/search.png'
-import Cards from './Card'
-import { data } from './Data'
+import React, { useState, useEffect } from 'react';
+import { Text, View, SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView, ActivityIndicator } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import searchIcon from '../../assest/search.png';
+import { styles } from './style';
+import fetchEvents from '../../utils/EventData';
+import ListEvent from './components/ListEvent';
+import MapEvent from './components/MapEvent';
+
+
 const Home = () => {
-    const navigation = useNavigation();
-    const carsData = data.filter(item => item.category === 'Cars');
-    const laptopData = data.filter(item => item.category === 'Laptop');
-    const phoneData = data.filter(item => item.category === 'Phone');
+    const [showData1, setShowData1] = useState(true);
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const searchEvents = async () => {
+            try {
+                setLoading(true);
+                const result = await fetchEvents(searchKeyword);
+                setEvents(result);
+            } catch (error) {
+                console.log(error, 'error');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        searchEvents();
+    }, [searchKeyword]);
+
+    const toggleFirstContent = () => {
+        setShowData1(true);
+    };
+
+    const toggleSecondContent = () => {
+        setShowData1(false);
+    };
+
+
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-            <View style={styles.searchContanir}>
-                <Image source={searchIcon} style={styles.searchIcon} />
-                <TextInput
-                    placeholder="Search..."
-                    placeholderTextColor={'black'}
-                    style={styles.searchBar}
-                />
+            <View style={styles.btnContanir}>
+                <TouchableOpacity
+                    onPress={toggleFirstContent}
+                    style={[
+                        styles.button,
+                        showData1 ? styles.selectedButton : null,
+                    ]}
+                >
+                    <Text style={styles.buttonText}>List</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={toggleSecondContent}
+                    style={[
+                        styles.button,
+                        !showData1 ? styles.selectedButton : null,
+                    ]}
+                >
+                    <Text style={styles.buttonText}>Map</Text>
+                </TouchableOpacity>
             </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
-                <Text style={styles.title}>Browse categories</Text>
-                <Cards title='Mobiles' data={carsData} />
-                <Cards title='Cars' data={laptopData} />
-                <Cards title='MoterCycle' data={phoneData} />
-            </ScrollView>
+            {showData1 ? (
+                <View>
+                    <ListEvent events={events} searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword} loading={loading} />
+                </View>
+            ) : (
+                <View>
+                    <MapEvent events={events} searchKeyword={searchKeyword} setSearchKeyword={setSearchKeyword} loading={loading} />
+                </View>
+            )}
         </SafeAreaView>
-    )
-}
+    );
+};
+
 export default Home;

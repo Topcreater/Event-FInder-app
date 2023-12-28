@@ -21,7 +21,9 @@ export const styles = StyleSheet.create({
     },
     searchBar: {
         color: 'black',
-        paddingLeft: 10
+        paddingLeft: 10,
+        width: windwoWidth * 0.80,
+
 
     },
     title: {
@@ -72,5 +74,24 @@ export const styles = StyleSheet.create({
         marginTop: 20,
         marginLeft: 20,
         color: '#232D3F'
+    },
+    btnContanir: {
+        flexDirection: "row",
+        justifyContent: 'space-around',
+        marginVertical: 20,
+    },
+    button: {
+        backgroundColor: 'gray',
+        paddingVertical: 10,
+        paddingHorizontal: 60,
+        borderRadius: 10
+    },
+    selectedButton: {
+        backgroundColor: 'black'
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 15,
+        color: 'white',
     }
 })

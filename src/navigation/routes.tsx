@@ -5,8 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../pages/Home'
 import CardSection from '../pages/CardSection'
-import cardImage from '../../assest/card.png'
-import homeImage from '../../assest/home.png'
+import cardImage from '../assest/favrot.png'
+import homeImage from '../assest/home.png'
 import CardDetails from '../pages/CardDetails';
 const Routes = () => {
     const Tab = createBottomTabNavigator();
@@ -77,7 +77,7 @@ const Routes = () => {
                                 style={{ width: 30, height: 30, }}
                             />
                         ),
-                        tabBarLabel: 'Add to Card',
+                        tabBarLabel: 'Favourite',
                     }}
                 />
             </Tab.Navigator>
