@@ -12,9 +12,11 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     imageCont: {
-        backgroundColor: '#EEEEEE',
+        backgroundColor: '#EDFCFE',
         borderTopStartRadius: 10,
         borderBottomLeftRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
 
     },
     removeData: {
@@ -27,6 +29,17 @@ export const styles = StyleSheet.create({
         width: windwoWidth / 2.5,
         height: 100,
         resizeMode: 'contain',
+        borderRadius: 10,
+
+    },
+    title: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        fontFamily: 'Raleway',
+        color: '#4F6F52',
+        paddingTop: 10,
+        // paddingLeft: 10
+
     },
     subTitle: {
         fontSize: 12,
@@ -35,6 +48,7 @@ export const styles = StyleSheet.create({
         color: '#232D3F',
         paddingTop: 10,
         // paddingLeft: 10
+        width: 100,
     },
     catogoryTitle: {
         fontSize: 12,

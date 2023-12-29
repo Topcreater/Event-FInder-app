@@ -6,8 +6,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../pages/Home'
 import CardSection from '../pages/CardSection'
 import cardImage from '../assest/favrot.png'
-import homeImage from '../assest/home.png'
-import CardDetails from '../pages/CardDetails';
+import cardImageHover from '../assest/love.png'
+import homeImage from '../assest/loupe.png'
+import homeImageHover from '../assest/search.png'
+
+import EventDetails from '../pages/EventDetails';
 const Routes = () => {
     const Tab = createBottomTabNavigator();
     const HomeStack = createNativeStackNavigator();
@@ -20,8 +23,8 @@ const Routes = () => {
                     headerShown: false
                 }} />
                 <HomeStack.Screen name="Cards" component={CardSection} />
-                <HomeStack.Screen name="CardDetails" component={CardDetails} options={{
-                    headerShown: false
+                <HomeStack.Screen name="EventDetails" component={EventDetails} options={{
+                    headerShown: true
                 }} />
             </HomeStack.Navigator>
         );
@@ -39,7 +42,7 @@ const Routes = () => {
                         borderTopEndRadius: 15,
                         borderTopStartRadius: 15,
                         height: 73,
-                        backgroundColor: '#EEEEEE',
+                        backgroundColor: '#00A550',
                         alignItems: 'center',
                     },
                     tabBarItemStyle: {
@@ -59,11 +62,11 @@ const Routes = () => {
                         headerShown: false,
                         tabBarIcon: ({ focused }) => (
                             <Image
-                                source={focused ? homeImage : homeImage}
-                                style={{ width: 24, height: 24, }}
+                                source={focused ? homeImageHover : homeImage}
+                                style={{ width: 30, height: 30, }}
                             />
                         ),
-                        tabBarLabel: 'Home',
+                        tabBarLabel: 'Search Events',
                     }}
                 />
                 <Tab.Screen
@@ -73,7 +76,7 @@ const Routes = () => {
                         headerShown: true,
                         tabBarIcon: ({ focused }) => (
                             <Image
-                                source={focused ? cardImage : cardImage}
+                                source={focused ? cardImageHover : cardImage}
                                 style={{ width: 30, height: 30, }}
                             />
                         ),

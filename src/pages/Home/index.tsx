@@ -19,7 +19,11 @@ const Home = () => {
             try {
                 setLoading(true);
                 const result = await fetchEvents(searchKeyword);
-                setEvents(result);
+
+                // Filter out events without a location
+                const eventsWithLocation = result.filter(event => event._embedded?.venues[0]?.location);
+
+                setEvents(eventsWithLocation);
             } catch (error) {
                 console.log(error, 'error');
             } finally {

@@ -1,3 +1,4 @@
+// zustandStore/addfavorat.js
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,9 +8,9 @@ const useStore = create(
         set => ({
             data: [],
             addData: (newData: any) => set((state: any) => ({ data: [...state.data, newData] })),
-            removeData: (item: any, index: any) => {
+            removeData: (itemId: string) => {
                 set((state: any) => ({
-                    data: state.data.filter((dataItem: any, index: any) => dataItem.id !== item.id),
+                    data: state.data.filter((dataItem: any) => dataItem.id !== itemId),
                 }));
             },
         }),

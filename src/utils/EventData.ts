@@ -12,8 +12,8 @@ const fetchEvents = async (keyword) => {
         const events = response.data._embedded.events;
         return events;
     } catch (error) {
-        console.error('Error fetching events:', error);
-        throw error;
+        console.log('Error fetching events:', error);
+
     }
 };
 

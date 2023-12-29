@@ -18,15 +18,11 @@ export default function ListEvent({ events, searchKeyword, setSearchKeyword, loa
             setCurrentPage(currentPage - 1);
         }
     };
-    const formattedEvents = events.map((event: any) => ({
-        name: event.name,
-        country: event._embedded?.venues[0].country.name,
-        state: event._embedded?.venues[0].state.name,
-        location: event._embedded?.venues[0].city.name,
-        address: event._embedded?.venues[0].address.line1,
-        date: event.dates.start.localDate,
-        time: event.dates.start.localTime,
-    }));
+
+    const handleEventPress = (eventDetails) => {
+        navigation.navigate('EventDetails', { eventDetails });
+    };
+
     return (
         <View>
             <ScrollView>
@@ -44,14 +40,15 @@ export default function ListEvent({ events, searchKeyword, setSearchKeyword, loa
                     {loading ? (
                         <ActivityIndicator size="large" color="blue" />
                     ) : (
-                        formattedEvents
-                            .slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-                            .map((formattedEvent: any) => (
-                                <View key={formattedEvent.name} style={styles.eventContainer}>
-                                    <Text style={styles.eventName}>{formattedEvent.name}</Text>
-                                    <Text style={styles.eventDetails}>{formattedEvent.location}, {formattedEvent.state}, {formattedEvent.country}</Text>
-                                    <Text style={styles.eventDetails}>{formattedEvent.date} {formattedEvent.time}</Text>
-                                </View>
+                        events.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+                            .map((event: any) => (
+                                <TouchableOpacity key={event.id} style={styles.eventContainer} onPress={() => handleEventPress(event)}>
+                                    <Text style={styles.eventTitle}>Event</Text>
+                                    <Text style={styles.eventName}>{event.name}</Text>
+                                    <Text style={styles.eventName}>{event._embedded?.venues[0]?.location?.latitude},{event._embedded?.venues[0]?.location?.longitude}</Text>
+                                    <Text style={styles.eventDetails}>{event._embedded?.venues[0]?.city?.name}, {event._embedded?.venues[0]?.state?.name}, {event._embedded?.venues[0]?.country?.name}</Text>
+                                    <Text style={styles.eventDetails}>{event.dates.start.localDate} {event.dates.start.localTime}</Text>
+                                </TouchableOpacity>
                             ))
                     )}
                 </View>
@@ -133,6 +130,11 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         marginHorizontal: 10
+    },
+    eventTitle: {
+        color: '#4F6F52',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 
     eventName: {

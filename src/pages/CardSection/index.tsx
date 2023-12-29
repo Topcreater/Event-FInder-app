@@ -12,27 +12,37 @@ const CardSection = () => {
     };
     console.log(data?.id);
     const validData = data.filter(item => item && item.cardDatas);
+    // console.log(validData, 'validData');
+
+    const goToEventDetails = (itemData: any) => {
+        // Navigate to EventDetails and pass the item data as params
+        navigation.navigate('EventDetails', { eventDetails: itemData.cardDatas });
+    };
 
     return (
         <View style={{ flex: 1, backgroundColor: 'white' }}>
             {validData.length > 0 ? (
                 validData?.map((item, index) => (
                     <View key={index}>
-                        <View style={styles.contanir}>
-                            <View style={styles.imageCont}>
-                                <Image source={item.cardDatas.img[0]} style={styles.youTubeIcon} />
+                        <TouchableOpacity onPress={() => goToEventDetails(item)}>
+
+                            <View style={styles.contanir}>
+                                <View style={styles.imageCont}>
+                                    <Image source={{ uri: item.cardDatas.images[0].url }} style={styles.youTubeIcon} />
+                                </View>
+                                <View>
+                                    <Text style={styles.title}>Event</Text>
+                                    <Text style={styles.subTitle}>{item.cardDatas.name}</Text>
+                                    <Text style={styles.subTitle}>{item.cardDatas.dates.start.localDate}</Text>
+                                </View>
+                                <View style={styles.removeData}>
+                                    <TouchableOpacity onPress={() => handleRemoveData(item.id)}>
+                                        <Text style={styles.catogoryTitle}>Delete</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <View>
-                                <Text style={styles.subTitle}>{item.cardDatas.title}</Text>
-                                <Text style={styles.subTitle}>Rs {item.cardDatas.price}</Text>
-                                <Text style={styles.subTitle}>{item.cardDatas.location}</Text>
-                            </View>
-                            <View style={styles.removeData}>
-                                <TouchableOpacity onPress={() => handleRemoveData(item.id)}>
-                                    <Text style={styles.catogoryTitle}>Delete</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                        </TouchableOpacity>
+
                     </View>
                 ))
             ) : (
