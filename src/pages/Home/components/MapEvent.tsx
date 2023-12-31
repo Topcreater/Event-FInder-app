@@ -3,54 +3,79 @@ import { View, Text, ScrollView, ActivityIndicator, StyleSheet, Dimensions, Imag
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import searchIcon from '../../../assest/search.png';
-import Geolocation from '@react-native-community/geolocation';
+import CustomBox from '../../../components/CustomBox';
+import useStore from '../../../zustandStore/addfavorat';
+import uuid from 'react-native-uuid'
+import { EventDetails } from '../../../types/eventType';
 
-const MapEvent = ({ events, searchKeyword, setSearchKeyword, loading }: any) => {
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const [modalVisible, setModalVisible] = useState(false);
-    const [selectedMarker, setSelectedMarker] = useState(null);
+
+
+interface MapEventProps {
+    events: EventDetails[] | null;
+    searchKeyword: string;
+    setSearchKeyword: React.Dispatch<React.SetStateAction<string>>;
+    loading: boolean;
+}
+
+const MapEvent = ({ events, searchKeyword, setSearchKeyword, loading }: MapEventProps) => {
+    const [filteredEvents, setFilteredEvents] = useState<EventDetails[]>([]);
+    const [selectedEvent, setSelectedEvent] = useState<EventDetails | null>(null);
+    const addData = useStore((state: any) => state.addData);
+
+
+    const onAddToFavorites = (cardDatas: EventDetails) => {
+        setSelectedEvent(null);
+        const id = uuid.v4();
+        addData({ cardDatas, id });
+
+    };
     const mapRef = useRef<MapView>(null);
     useEffect(() => {
         if (events && mapRef.current) {
-            const coordinates = events.map((event: any) => ({
-                latitude: parseFloat(event._embedded.venues[0].location.latitude),
-                longitude: parseFloat(event._embedded.venues[0].location.longitude),
-            }));
+            const validCoordinates = events
+                .map((event: EventDetails) => ({
+                    latitude: parseFloat(event._embedded?.venues?.[0]?.location?.latitude) || 0,
+                    longitude: parseFloat(event._embedded?.venues?.[0]?.location?.longitude) || 0,
+                }))
+                .filter(coord => !isNaN(coord.latitude) && !isNaN(coord.longitude));
 
-            const minLatitude = Math.min(...coordinates.map(coord => coord.latitude));
-            const maxLatitude = Math.max(...coordinates.map(coord => coord.latitude));
-            const minLongitude = Math.min(...coordinates.map(coord => coord.longitude));
-            const maxLongitude = Math.max(...coordinates.map(coord => coord.longitude));
+            if (validCoordinates.length > 0) {
+                const minLatitude = Math.min(...validCoordinates.map(coord => coord.latitude));
+                const maxLatitude = Math.max(...validCoordinates.map(coord => coord.latitude));
+                const minLongitude = Math.min(...validCoordinates.map(coord => coord.longitude));
+                const maxLongitude = Math.max(...validCoordinates.map(coord => coord.longitude));
 
-            mapRef.current.fitToCoordinates([{ latitude: maxLatitude, longitude: minLongitude }, { latitude: minLatitude, longitude: maxLongitude }], {
-                edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-                animated: true,
-            });
+                mapRef.current.fitToCoordinates(
+                    [
+                        { latitude: maxLatitude, longitude: minLongitude },
+                        { latitude: minLatitude, longitude: maxLongitude },
+                    ],
+                    {
+                        edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+                        animated: true,
+                    }
+                );
+            }
         }
     }, [events]);
 
-    const handleMarkerPress = (event) => {
-        if (selectedMarker && selectedMarker.id === event.id) {
-            // If the same marker is pressed again, close the modal
-            setModalVisible(false);
-            setSelectedMarker(null);
-        } else {
-            // Open the small box for the selected marker
-            setSelectedMarker(event);
-            setModalVisible(true);
+    useEffect(() => {
+        if (events) {
+            const filtered = events.filter(event =>
+                event._embedded && // Check if _embedded property exists
+                event._embedded.venues &&
+                event._embedded.venues[0]?.name && // Check if name property exists
+                event._embedded.venues[0]?.name.toLowerCase().includes(searchKeyword.toLowerCase())
+            );
+            setFilteredEvents(filtered);
         }
-    };
+    }, [events, searchKeyword]);
 
-    const handleAddToFavorites = () => {
-        // Implement your logic to add to favorites
-        // You can use selectedMarker to get the information about the selected event
 
-        // Add your logic to add to favorites
-        setModalVisible(false);
-        setSelectedMarker(null);
-    };
+
+
     return (
-        <View>
+        <View >
             <ScrollView>
                 <View style={styles.searchContainer}>
                     <Image source={searchIcon} style={styles.searchIcon} />
@@ -62,58 +87,39 @@ const MapEvent = ({ events, searchKeyword, setSearchKeyword, loading }: any) => 
                         onChangeText={setSearchKeyword}
                     />
                 </View>
-
-                {loading ? (
-                    <ActivityIndicator size="large" color="blue" />
-                ) : (
+                <View >
+                    <MapView
+                        ref={mapRef}
+                        style={styles.map}
+                        provider={PROVIDER_GOOGLE}
+                        showsUserLocation={true}
+                        followsUserLocation={true}
+                        zoomControlEnabled={true}
+                        zoomEnabled={true}
+                    >
+                        {filteredEvents?.map((event: any) => (
+                            <Marker
+                                key={event.id}
+                                coordinate={{
+                                    latitude: parseFloat(event._embedded.venues[0].location.latitude),
+                                    longitude: parseFloat(event._embedded.venues[0].location.longitude),
+                                }}
+                                title={event._embedded.venues[0].name}
+                                description={event._embedded.venues[0].address.line1}
+                                onPress={() => setSelectedEvent(event)}
+                            />
+                        ))}
+                    </MapView>
                     <View>
-                        <MapView
-                            ref={mapRef}
-                            style={styles.map}
-                            provider={PROVIDER_GOOGLE}
-                            showsUserLocation={true}
-                            followsUserLocation={true}
-                            zoomControlEnabled={true}
-                            zoomEnabled={true}
-                        >
-                            {events?.map((event: any) => (
-                                <Marker
-                                    key={event.id}
-                                    coordinate={{
-                                        latitude: parseFloat(event._embedded.venues[0].location.latitude),
-                                        longitude: parseFloat(event._embedded.venues[0].location.longitude),
-                                    }}
-                                    title={event._embedded.venues[0].name}
-                                    description={event._embedded.venues[0].address.line1}
-                                    onPress={() => handleMarkerPress(event)}
-
-                                />
-                            ))}
-                        </MapView>
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => setModalVisible(false)}
-                        >
-                            <View style={styles.modalContainer}>
-                                {selectedMarker && (
-                                    <View style={styles.modalContent}>
-                                        <Text>{selectedMarker._embedded.venues[0].name}</Text>
-                                        <Text>{selectedMarker._embedded.venues[0].address.line1}</Text>
-                                        <TouchableOpacity style={styles.addToFavoritesButton} onPress={handleAddToFavorites}>
-                                            <Text style={styles.addToFavoritesButtonText}>Add to Favorites</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                )}
-
-                                <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
-                                    <Text style={styles.closeButtonText}>Close</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </Modal>
+                        {selectedEvent && (
+                            <CustomBox
+                                event={selectedEvent}
+                                onAddToFavorites={() => onAddToFavorites(selectedEvent)}
+                                onClose={() => setSelectedEvent(null)}
+                            />
+                        )}
                     </View>
-                )}
+                </View>
             </ScrollView>
         </View>
 
@@ -124,7 +130,7 @@ const windowWidth = Dimensions.get('screen').width;
 
 const styles = StyleSheet.create({
     searchContainer: {
-        marginTop: 20,
+        marginTop: 10,
         backgroundColor: '#EEEEEE',
         width: windowWidth * 0.95,
         flexDirection: 'row',
@@ -133,6 +139,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingLeft: 10,
         shadowColor: 'grey',
+        zIndex: 1
+
     },
     modalContainer: {
         flex: 0.5,
@@ -175,24 +183,8 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         width: windowWidth * 0.80,
     },
-    container: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
-    mapStyle: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-    },
     map: {
-        height: 400,
+        height: Dimensions.get('screen').height / 2,
         width: windowWidth,
         marginTop: 20,
     },
@@ -218,83 +210,3 @@ const styles = StyleSheet.create({
 });
 
 export default MapEvent;
-const mapStyle = [
-    { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
-    { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
-    { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
-    {
-        featureType: 'administrative.locality',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }],
-    },
-    {
-        featureType: 'poi',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }],
-    },
-    {
-        featureType: 'poi.park',
-        elementType: 'geometry',
-        stylers: [{ color: '#263c3f' }],
-    },
-    {
-        featureType: 'poi.park',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#6b9a76' }],
-    },
-    {
-        featureType: 'road',
-        elementType: 'geometry',
-        stylers: [{ color: '#38414e' }],
-    },
-    {
-        featureType: 'road',
-        elementType: 'geometry.stroke',
-        stylers: [{ color: '#212a37' }],
-    },
-    {
-        featureType: 'road',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#9ca5b3' }],
-    },
-    {
-        featureType: 'road.highway',
-        elementType: 'geometry',
-        stylers: [{ color: '#746855' }],
-    },
-    {
-        featureType: 'road.highway',
-        elementType: 'geometry.stroke',
-        stylers: [{ color: '#1f2835' }],
-    },
-    {
-        featureType: 'road.highway',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#f3d19c' }],
-    },
-    {
-        featureType: 'transit',
-        elementType: 'geometry',
-        stylers: [{ color: '#2f3948' }],
-    },
-    {
-        featureType: 'transit.station',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#d59563' }],
-    },
-    {
-        featureType: 'water',
-        elementType: 'geometry',
-        stylers: [{ color: '#17263c' }],
-    },
-    {
-        featureType: 'water',
-        elementType: 'labels.text.fill',
-        stylers: [{ color: '#515c6d' }],
-    },
-    {
-        featureType: 'water',
-        elementType: 'labels.text.stroke',
-        stylers: [{ color: '#17263c' }],
-    },
-];

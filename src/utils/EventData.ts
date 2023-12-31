@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { EventDetails } from '../types/eventType';
 
 const TM_API_KEY = 'CJW3CDd6i19cYkMJehcyCGyeLp9vqFBU';
 
-const fetchEvents = async (keyword) => {
+const fetchEvents = async (keyword:string) => {
     try {
         const response = await axios.get(
             `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${TM_API_KEY}&keyword=${keyword}`

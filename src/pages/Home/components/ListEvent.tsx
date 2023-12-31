@@ -2,12 +2,23 @@ import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, StyleSheet
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import searchIcon from '../../../assest/search.png';
+import Location from '../../../assest/location.png';
+import { EventDetails } from '../../../types/eventType';
+
+
+
+interface ListEventProps {
+    events: EventDetails[] | null;
+    searchKeyword: string;
+    setSearchKeyword: React.Dispatch<React.SetStateAction<string>>;
+    loading: boolean;
+}
 
 const PAGE_SIZE = 5;
 
-export default function ListEvent({ events, searchKeyword, setSearchKeyword, loading }: any) {
+const ListEvent: React.FC<ListEventProps> = ({ events, searchKeyword, setSearchKeyword, loading }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     const handleNextPage = () => {
         setCurrentPage(currentPage + 1);
@@ -19,7 +30,7 @@ export default function ListEvent({ events, searchKeyword, setSearchKeyword, loa
         }
     };
 
-    const handleEventPress = (eventDetails) => {
+    const handleEventPress = (eventDetails: EventDetails) => {
         navigation.navigate('EventDetails', { eventDetails });
     };
 
@@ -36,22 +47,31 @@ export default function ListEvent({ events, searchKeyword, setSearchKeyword, loa
                         onChangeText={setSearchKeyword}
                     />
                 </View>
-                <View style={{ marginVertical: 10 }}>
-                    {loading ? (
-                        <ActivityIndicator size="large" color="blue" />
+                <Text style={styles.heading}>Events</Text>
+                {loading ? (
+                    <ActivityIndicator size="large" color="#00A550" />
+                ) : (
+                    events && events?.length > 0 ? (
+                        <View style={{ marginVertical: 10 }}>
+                            {events?.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+                                ?.map((event: EventDetails) => (
+                                    <TouchableOpacity key={event.id} style={styles.eventContainer} onPress={() => handleEventPress(event)}>
+                                        <Text style={styles.eventTitle}>Event</Text>
+                                        <Text style={styles.eventName}>{event.name}</Text>
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Image source={Location} style={{ height: 15, width: 15, marginRight: 5 }} />
+                                            <Text style={styles.eventDetails}>{event._embedded.venues[0].address.line1}</Text>
+
+                                        </View>
+                                        <Text style={styles.eventDetails}>{event._embedded?.venues[0]?.city?.name}, {event._embedded?.venues[0]?.state?.name}, {event._embedded?.venues[0]?.country?.name}</Text>
+                                        <Text style={styles.eventDetails}>Start Time: {event.dates.start.localDate} {event.dates.start.localTime}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                        </View>
                     ) : (
-                        events.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-                            .map((event: any) => (
-                                <TouchableOpacity key={event.id} style={styles.eventContainer} onPress={() => handleEventPress(event)}>
-                                    <Text style={styles.eventTitle}>Event</Text>
-                                    <Text style={styles.eventName}>{event.name}</Text>
-                                    <Text style={styles.eventName}>{event._embedded?.venues[0]?.location?.latitude},{event._embedded?.venues[0]?.location?.longitude}</Text>
-                                    <Text style={styles.eventDetails}>{event._embedded?.venues[0]?.city?.name}, {event._embedded?.venues[0]?.state?.name}, {event._embedded?.venues[0]?.country?.name}</Text>
-                                    <Text style={styles.eventDetails}>{event.dates.start.localDate} {event.dates.start.localTime}</Text>
-                                </TouchableOpacity>
-                            ))
-                    )}
-                </View>
+                        <Text style={styles.noEventsText}>No events available</Text>
+                    )
+                )}
                 <View style={[styles.btnContanir, { marginBottom: 100 }]}>
                     <TouchableOpacity
                         onPress={handlePrevPage}
@@ -70,6 +90,7 @@ export default function ListEvent({ events, searchKeyword, setSearchKeyword, loa
         </View>
     )
 }
+export default ListEvent;
 const windwoWidth = Dimensions.get('screen').width
 
 const styles = StyleSheet.create({
@@ -93,8 +114,8 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         color: 'black',
-        paddingLeft: 10
-
+        paddingLeft: 10,
+        width: windwoWidth * 0.850,
     },
 
     btnContanir: {
@@ -132,11 +153,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     eventTitle: {
-        color: '#4F6F52',
+        color: '#00A550',
         fontSize: 16,
         fontWeight: 'bold',
     },
-
+    heading: {
+        color: 'white',
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        marginTop: 10,
+    },
     eventName: {
         color: '#333',
         fontSize: 16,
@@ -146,5 +173,11 @@ const styles = StyleSheet.create({
     eventDetails: {
         color: '#666', // Medium gray text color
         fontSize: 14,
+    },
+    noEventsText: {
+        textAlign: 'center',
+        fontSize: 18,
+        color: 'black',
+        marginTop: 20,
     },
 })

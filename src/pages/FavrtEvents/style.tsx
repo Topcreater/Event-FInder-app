@@ -52,12 +52,58 @@ export const styles = StyleSheet.create({
     },
     catogoryTitle: {
         fontSize: 12,
-        fontWeight: '600',
-        fontFamily: 'Raleway',
-        marginTop: 10,
-        marginRight: 10,
-        color: '#232D3F',
+        color: 'white',
         textAlign: 'right'
 
-    }
+    },
+    noEventsText: {
+        textAlign: 'center',
+        fontSize: 18,
+        color: 'white',
+        marginTop: 200,
+    },
+    eventContainer: {
+        backgroundColor: '#9AF3C5',
+        marginVertical: 10,
+        padding: 10,
+        borderRadius: 8,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginHorizontal: 10
+    },
+    eventTitle: {
+        color: '#00A550',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    heading: {
+        color: 'white',
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginLeft: 10,
+        marginTop: 10,
+    },
+    eventName: {
+        color: '#333',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+
+    eventDetails: {
+        color: '#666', // Medium gray text color
+        fontSize: 14,
+    },
+    addButton: {
+        backgroundColor: '#08994E',
+        padding: 5,
+        borderRadius: 8,
+        alignItems: 'center',
+        // marginLeft: 10
+    },
 })

@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../pages/Home'
-import CardSection from '../pages/CardSection'
+import FavrtEvents from '../pages/FavrtEvents'
 import cardImage from '../assest/favrot.png'
 import cardImageHover from '../assest/love.png'
 import homeImage from '../assest/loupe.png'
@@ -22,9 +22,15 @@ const Routes = () => {
                 <HomeStack.Screen name="Homes" component={Home} options={{
                     headerShown: false
                 }} />
-                <HomeStack.Screen name="Cards" component={CardSection} />
+                <HomeStack.Screen name="Cards" component={FavrtEvents} />
                 <HomeStack.Screen name="EventDetails" component={EventDetails} options={{
-                    headerShown: true
+                    headerShown: true,
+                    headerStyle: {
+                        backgroundColor: '#00A550',
+                    },
+                    headerTintColor: 'white',
+                    headerTitleAlign: 'center'
+
                 }} />
             </HomeStack.Navigator>
         );
@@ -36,22 +42,24 @@ const Routes = () => {
                 screenOptions={{
                     headerShown: false,
                     tabBarShowLabel: true,
-                    tabBarActiveTintColor: '#FF7C84',
+                    tabBarActiveTintColor: '#00A550',
                     tabBarInactiveTintColor: 'black',
                     tabBarStyle: {
-                        borderTopEndRadius: 15,
-                        borderTopStartRadius: 15,
+                        // borderTopEndRadius: 15,
+                        // borderTopStartRadius: 15,
                         height: 73,
-                        backgroundColor: '#00A550',
+                        backgroundColor: 'white',
                         alignItems: 'center',
+
                     },
                     tabBarItemStyle: {
                         marginTop: 11
                     },
                     tabBarLabelStyle: {
-
+                        fontSize: 12,
+                        fontWeight: 'bold',
                         marginBottom: 10,
-                        color: 'black'
+                        // color: 'black'
                     },
                 }}
             >
@@ -67,13 +75,20 @@ const Routes = () => {
                             />
                         ),
                         tabBarLabel: 'Search Events',
+                        // tabBarActiveTintColor: '#00A550'
+
                     }}
                 />
                 <Tab.Screen
-                    name="Card"
-                    component={CardSection}
+                    name="Favourites Events"
+                    component={FavrtEvents}
                     options={{
-                        headerShown: true,
+                        headerShown: false,
+                        headerStyle: {
+                            backgroundColor: '#2AE384',
+                        },
+                        headerTintColor: 'white',
+                        headerTitleAlign: 'center',
                         tabBarIcon: ({ focused }) => (
                             <Image
                                 source={focused ? cardImageHover : cardImage}
