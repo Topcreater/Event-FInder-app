@@ -73,12 +73,12 @@ const ListEvent: React.FC<ListEventProps> = ({ events, searchKeyword, setSearchK
                     >
                         <Text style={styles.buttonText}>Load Less</Text>
                     </TouchableOpacity>}
-                    <TouchableOpacity
+                    {!loading && <TouchableOpacity
                         onPress={handleNextPage}
                         style={styles.button}
                     >
                         <Text style={styles.buttonText}>Load More</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
 
                 </View>
             </ScrollView>

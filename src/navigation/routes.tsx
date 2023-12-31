@@ -7,14 +7,12 @@ import Home from '../pages/Home'
 import FavrtEvents from '../pages/FavrtEvents'
 import cardImage from '../assest/favrot.png'
 import cardImageHover from '../assest/love.png'
-import homeImage from '../assest/loupe.png'
-import homeImageHover from '../assest/search.png'
-
+import homeImage from '../assest/icon.png'
+import homeImageHover from '../assest/replace.png'
 import EventDetails from '../pages/EventDetails';
 const Routes = () => {
     const Tab = createBottomTabNavigator();
     const HomeStack = createNativeStackNavigator();
-
 
     function HomeStackScreen() {
         return (
@@ -45,8 +43,6 @@ const Routes = () => {
                     tabBarActiveTintColor: '#00A550',
                     tabBarInactiveTintColor: 'black',
                     tabBarStyle: {
-                        // borderTopEndRadius: 15,
-                        // borderTopStartRadius: 15,
                         height: 73,
                         backgroundColor: 'white',
                         alignItems: 'center',
@@ -59,7 +55,7 @@ const Routes = () => {
                         fontSize: 12,
                         fontWeight: 'bold',
                         marginBottom: 10,
-                        // color: 'black'
+
                     },
                 }}
             >
@@ -75,7 +71,6 @@ const Routes = () => {
                             />
                         ),
                         tabBarLabel: 'Search Events',
-                        // tabBarActiveTintColor: '#00A550'
 
                     }}
                 />

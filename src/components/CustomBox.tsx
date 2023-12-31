@@ -1,8 +1,6 @@
 // CustomBox.js
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import useStore from '../zustandStore/addfavorat';
-import uuid from 'react-native-uuid'
 
 const CustomBox = ({ event, onAddToFavorites, onClose }: any) => {
 

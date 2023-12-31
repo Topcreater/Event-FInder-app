@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, ScrollView, ActivityIndicator, StyleSheet, Dimensions, Image, TextInput, Platform, TouchableOpacity, Alert, Modal, PermissionsAndroid } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import { useNavigation } from '@react-navigation/native';
 import searchIcon from '../../../assest/search.png';
 import CustomBox from '../../../components/CustomBox';
 import useStore from '../../../zustandStore/addfavorat';

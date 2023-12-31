@@ -11,7 +11,6 @@ import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
-import Home from './src/pages/Home';
 import Routes from './src/navigation/routes';
 function App(): JSX.Element {
   useEffect(() => {

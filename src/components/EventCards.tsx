@@ -6,11 +6,11 @@ import Location from '../assest/location.png'
 interface EventCardsProps {
     events: EventDetails[];
     handleEventPress: (event: EventDetails) => void;
-    currentPage?: number; // Make it optional with '?'
-    PAGE_SIZE?: number;    // Make it optional with '?'
+    currentPage: number;
+    PAGE_SIZE: number;
 }
 
-export default function EventCards({ events, handleEventPress, currentPage = 1, PAGE_SIZE = 1 }: EventCardsProps) {
+export default function EventCards({ events, handleEventPress, currentPage, PAGE_SIZE }: EventCardsProps) {
     return (
         <View style={{ marginVertical: 10 }}>
             {events?.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)

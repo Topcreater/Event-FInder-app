@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, TouchableOpacity, TextInput, Image, ScrollView, ActivityIndicator, ImageBackground } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import searchIcon from '../../assest/search.png';
+import { Text, View, SafeAreaView, TouchableOpacity, ImageBackground } from 'react-native';
 import { styles } from './style';
 import fetchEvents from '../../utils/EventData';
 import ListEvent from './components/ListEvent';
@@ -21,8 +19,6 @@ const Home = () => {
             try {
                 setLoading(true);
                 const result = await fetchEvents(searchKeyword);
-
-                // Filter out events without a location
                 const eventsWithLocation = result?.filter((event: EventDetails) => event._embedded?.venues[0]?.location);
 
                 setEvents(eventsWithLocation);
