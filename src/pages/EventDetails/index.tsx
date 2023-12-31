@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { View, ScrollView, Image, TouchableOpacity, Text, Modal, Linking, ImageBackground, ToastAndroid } from 'react-native';
-// import { styles } from './style';
+import { styles } from './style';
 import { useRoute } from '@react-navigation/native';
 import { useNavigation } from '@react-navigation/native';
 import useStore from '../../zustandStore/addfavorat';
-import back from '../../assest/clickFavrot.png'
 import uuid from 'react-native-uuid'
 import MapView, { Marker } from 'react-native-maps';
 import backgroundImage from '../../assest/background.png';
@@ -15,11 +14,12 @@ const EventDetails = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<any>();
     const cardDatas = route.params?.eventDetails;
+    const isFromFavorites = route?.params?.fromFavorites;
     console.log(cardDatas, "cardDatas");
 
 
     const handelAddData = () => {
-        if (isButtonDisabled) {
+        if (isButtonDisabled || isFromFavorites) {
             ToastAndroid.showWithGravityAndOffset(
                 'Event Already Favorites',
                 ToastAndroid.LONG,
@@ -95,6 +95,7 @@ const EventDetails = () => {
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={handelAddData}
+                                // disabled={isFromFavorites}
                                 style={[styles.addButton, { backgroundColor: isButtonDisabled ? '#044222' : '#08994E' }]}
                             >
                                 <Text style={styles.addButtonText}>Add to Favorites</Text>
@@ -109,60 +110,4 @@ const EventDetails = () => {
 };
 
 export default EventDetails;
-import { StyleSheet } from 'react-native';
-import Header from '../../components/Header';
 
-export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'black',
-    },
-    image: {
-        width: '100%',
-        height: 200,
-        resizeMode: 'cover',
-        marginTop: 20,
-    },
-    detailsContainer: {
-        padding: 16,
-    },
-    eventName: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8,
-        textAlign: 'center'
-    },
-    heading: {
-        fontSize: 16,
-        // marginBottom: 16,
-        color: '#333',
-    },
-    date: {
-        fontSize: 12,
-        marginBottom: 16,
-        color: '#555',
-
-    },
-    info: {
-        fontSize: 12,
-        marginBottom: 16,
-        // lineHeight: 24,
-        color: '#555'
-    },
-    btnContanir: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-
-    },
-    addButton: {
-        backgroundColor: '#08994E',
-        padding: 12,
-        borderRadius: 8,
-        alignItems: 'center',
-        marginLeft: 10
-    },
-    addButtonText: {
-        color: '#fff',
-        fontSize: 14,
-    },
-});

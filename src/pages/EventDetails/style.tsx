@@ -2,86 +2,56 @@ import { StyleSheet, Dimensions } from "react-native";
 const windowWidth = Dimensions.get('window').width
 export const styles = StyleSheet.create({
 
-    imageContainer: {
-        flexDirection: 'row',
-        backgroundColor: '#EEEEEE',
-        height: 220,
-
+    container: {
+        flex: 1,
+        backgroundColor: 'black',
     },
     image: {
-        width: Dimensions.get('window').width,
-        resizeMode: 'contain',
-        alignItems: 'center',
+        width: '100%',
         height: 200,
-
+        resizeMode: 'cover',
+        marginTop: 20,
     },
-    pageText: {
-        color: '#232D3F',
-        fontSize: 18,
-        backgroundColor: '#EEEEEE',
+    detailsContainer: {
+        padding: 16,
     },
-    fullscreenImage: {
-        height: 600,
-        width: Dimensions.get('window').width,
-        resizeMode: 'contain',
-        alignItems: 'center',
-    },
-    detailCon: {
-        backgroundColor: '#EDFCFE',
-        paddingHorizontal: 15,
-        paddingVertical: 15,
-        borderBottomEndRadius: 10,
-        borderBottomLeftRadius: 10,
-    },
-
-    TitleCon: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingBottom: 15
-    },
-    title: {
-        fontSize: 14,
+    eventName: {
+        fontSize: 20,
         fontWeight: 'bold',
-        fontFamily: 'Raleway',
-        color: '#232D3F',
-        paddingTop: 10,
+        marginBottom: 8,
+        textAlign: 'center'
     },
-    subTitle: {
+    heading: {
+        fontSize: 16,
+        // marginBottom: 16,
+        color: '#333',
+    },
+    date: {
         fontSize: 12,
-        fontWeight: '600',
-        fontFamily: 'Raleway',
-        color: '#232D3F',
-        paddingTop: 10,
+        marginBottom: 16,
+        color: '#555',
 
     },
-    downloadingButton: {
-        marginHorizontal: 10,
-        borderRadius: 10,
-        paddingHorizontal: 29,
-        paddingVertical: 16,
-        backgroundColor: '#EBE76C'
+    info: {
+        fontSize: 12,
+        marginBottom: 16,
+        // lineHeight: 24,
+        color: '#555'
     },
-    buyNowBut: {
-        marginHorizontal: 10,
-        borderRadius: 10,
-        paddingHorizontal: 29,
-        paddingVertical: 16,
-        backgroundColor: '#D07000'
-    },
-    buttonText: {
-        textAlign: 'center',
-        color: 'white',
-        fontSize: 14,
-        fontWeight: '600',
-        fontFamily: 'Lato'
-
-    },
-
-    ButtonContanior: {
-        justifyContent: 'flex-end',
+    btnContanir: {
         flexDirection: 'row',
+        justifyContent: 'flex-end',
+
+    },
+    addButton: {
+        backgroundColor: '#08994E',
+        padding: 12,
+        borderRadius: 8,
         alignItems: 'center',
-        marginTop: 38,
-        marginBottom: 20,
+        marginLeft: 10
+    },
+    addButtonText: {
+        color: '#fff',
+        fontSize: 14,
     },
 })

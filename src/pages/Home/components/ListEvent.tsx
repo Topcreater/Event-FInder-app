@@ -1,9 +1,10 @@
-import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, StyleSheet, Dimensions, Image, TextInput } from 'react-native'
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, StyleSheet, Dimensions, Image, TextInput, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import searchIcon from '../../../assest/search.png';
 import Location from '../../../assest/location.png';
 import { EventDetails } from '../../../types/eventType';
+import EventCards from '../../../components/EventCards';
 
 
 
@@ -25,9 +26,16 @@ const ListEvent: React.FC<ListEventProps> = ({ events, searchKeyword, setSearchK
     };
 
     const handlePrevPage = () => {
-        if (currentPage > 1) {
+        if (currentPage === 1) {
+            ToastAndroid.showWithGravityAndOffset(
+                'No Previous Event Found',
+                ToastAndroid.LONG,
+                ToastAndroid.BOTTOM,
+                25,
+                50
+            );
+        } else
             setCurrentPage(currentPage - 1);
-        }
     };
 
     const handleEventPress = (eventDetails: EventDetails) => {
@@ -52,39 +60,26 @@ const ListEvent: React.FC<ListEventProps> = ({ events, searchKeyword, setSearchK
                     <ActivityIndicator size="large" color="#00A550" />
                 ) : (
                     events && events?.length > 0 ? (
-                        <View style={{ marginVertical: 10 }}>
-                            {events?.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
-                                ?.map((event: EventDetails) => (
-                                    <TouchableOpacity key={event.id} style={styles.eventContainer} onPress={() => handleEventPress(event)}>
-                                        <Text style={styles.eventTitle}>Event</Text>
-                                        <Text style={styles.eventName}>{event.name}</Text>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <Image source={Location} style={{ height: 15, width: 15, marginRight: 5 }} />
-                                            <Text style={styles.eventDetails}>{event._embedded.venues[0].address.line1}</Text>
-
-                                        </View>
-                                        <Text style={styles.eventDetails}>{event._embedded?.venues[0]?.city?.name}, {event._embedded?.venues[0]?.state?.name}, {event._embedded?.venues[0]?.country?.name}</Text>
-                                        <Text style={styles.eventDetails}>Start Time: {event.dates.start.localDate} {event.dates.start.localTime}</Text>
-                                    </TouchableOpacity>
-                                ))}
-                        </View>
+                        <EventCards events={events} handleEventPress={handleEventPress} currentPage={currentPage} PAGE_SIZE={PAGE_SIZE} />
                     ) : (
                         <Text style={styles.noEventsText}>No events available</Text>
                     )
                 )}
                 <View style={[styles.btnContanir, { marginBottom: 100 }]}>
-                    <TouchableOpacity
+                    {currentPage > 1 && <TouchableOpacity
                         onPress={handlePrevPage}
-                        style={styles.button}
+                        style={[styles.button, currentPage === 1 ? styles.disabledButton : null]}
+
                     >
-                        <Text style={styles.buttonText}>Previous</Text>
-                    </TouchableOpacity>
+                        <Text style={styles.buttonText}>Load Less</Text>
+                    </TouchableOpacity>}
                     <TouchableOpacity
                         onPress={handleNextPage}
                         style={styles.button}
                     >
-                        <Text style={styles.buttonText}>Next</Text>
+                        <Text style={styles.buttonText}>Load More</Text>
                     </TouchableOpacity>
+
                 </View>
             </ScrollView>
         </View>
@@ -126,7 +121,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: 'black',
         paddingVertical: 10,
-        paddingHorizontal: 60,
+        paddingHorizontal: 20,
         borderRadius: 10
     },
     selectedButton: {
@@ -179,5 +174,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         color: 'black',
         marginTop: 20,
+    },
+    disabledButton: {
+        backgroundColor: '#999', // Set a color for disabled state
     },
 })

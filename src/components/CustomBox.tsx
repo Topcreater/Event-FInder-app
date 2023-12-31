@@ -11,7 +11,7 @@ const CustomBox = ({ event, onAddToFavorites, onClose }: any) => {
             <Text style={styles.eventName}>Do you want to Favorites this Event {event._embedded.venues[0].name}?</Text>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={[styles.button,]} onPress={() => onAddToFavorites()}>
-                    <Text style={styles.buttonText}>Yes</Text>
+                    <Text style={[styles.buttonText, { color: '#00A550' }]}>Yes</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.button,]} onPress={onClose}>
                     <Text style={styles.buttonText}>No</Text>
@@ -23,7 +23,7 @@ const CustomBox = ({ event, onAddToFavorites, onClose }: any) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#9AF3C5',
+        backgroundColor: 'white',
         padding: 5,
         borderRadius: 10,
         width: Dimensions.get('screen').width / 2,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     buttonText: {
-        color: 'white',
+        color: 'black',
     },
 });
 

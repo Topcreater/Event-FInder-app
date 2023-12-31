@@ -4,7 +4,7 @@ const windwoWidth = Dimensions.get('screen').width
 export const styles = StyleSheet.create({
 
     contanir: {
-        backgroundColor: '#EDFCFE',
+        backgroundColor: 'white',
         borderRadius: 10,
         flexDirection: "row",
         marginTop: 20,
@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
         width: 100,
     },
     catogoryTitle: {
-        fontSize: 12,
-        color: 'white',
+        fontSize: 16,
+        color: 'red',
         textAlign: 'right'
 
     },
@@ -63,7 +63,7 @@ export const styles = StyleSheet.create({
         marginTop: 200,
     },
     eventContainer: {
-        backgroundColor: '#9AF3C5',
+        backgroundColor: 'white',
         marginVertical: 10,
         padding: 10,
         borderRadius: 8,
@@ -100,10 +100,46 @@ export const styles = StyleSheet.create({
         fontSize: 14,
     },
     addButton: {
-        backgroundColor: '#08994E',
-        padding: 5,
+        // backgroundColor: '#08994E',
+        // padding: 5,
         borderRadius: 8,
         alignItems: 'center',
         // marginLeft: 10
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        width: '80%',
+    },
+    modalText: {
+        fontSize: 16,
+        marginBottom: 20,
+        color: 'black'
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    modalButton: {
+        padding: 10,
+        marginLeft: 10,
+        borderRadius: 5,
+    },
+    cancelButton: {
+        backgroundColor: 'grey',
+    },
+    confirmButton: {
+        backgroundColor: 'red',
+    },
+    modalButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
     },
 })
